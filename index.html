@@ -3,16 +3,29 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>JD Finance</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#385c4b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="JD Finance">
+<link rel="icon" href="icons/icon-192.png">
 <style>
 :root{--bg:#f6f4ef;--card:#fff;--ink:#20221f;--muted:#7b7d78;--green:#385c4b;--line:#e8e5de;--red:#b84c4c;--gold:#b07a27}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px Inter,system-ui,-apple-system,Segoe UI,sans-serif}
 button,input,select{font:inherit}button{cursor:pointer;border:0}.app{display:flex;min-height:100vh}.side{width:240px;background:#fff;border-right:1px solid var(--line);padding:24px 16px;position:sticky;top:0;height:100vh}.brand{font-size:25px;font-weight:800;padding:0 12px 25px}.brand small{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:3px}.nav button{width:100%;background:transparent;text-align:left;padding:12px;border-radius:12px;color:#555;margin:2px 0}.nav button.active,.nav button:hover{background:#edf2ee;color:var(--green);font-weight:700}.main{flex:1;padding:30px;max-width:1450px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}.top h1{margin:0;font-size:30px}.picker{padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}.hero{background:var(--green);color:#fff;border-radius:24px;padding:25px}.hero .big{font-size:38px;font-weight:800;margin:5px 0 16px}.muted{color:var(--muted)}.hero .muted{color:#dbe5df}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat .num{font-size:22px;font-weight:800;margin-top:6px}.green{color:#26734d}.red{color:var(--red)}.gold{color:var(--gold)}.section{margin-top:22px}.section h2{font-size:19px}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line)}.table th{font-size:11px;text-transform:uppercase;color:var(--muted)}.pill{padding:5px 9px;border-radius:99px;background:#f0f1ed;font-size:11px}.pill.in{background:#e5f3ea;color:#26734d}.pill.out{background:#f8e7e5;color:#b84c4c}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}.input{padding:10px 12px;border:1px solid var(--line);background:#fff;border-radius:11px}.primary{background:var(--green);color:#fff;padding:11px 15px;border-radius:11px}.secondary{background:#fff;border:1px solid var(--line);padding:11px 15px;border-radius:11px}.danger{color:var(--red)}.empty{text-align:center;padding:45px;color:var(--muted)}.low{background:#fff6df}.modal{position:fixed;inset:0;background:rgba(20,25,21,.25);display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modalbox{width:min(540px,100%);background:#fff;border-radius:22px;padding:24px;box-shadow:0 20px 70px #0002}.form{display:grid;gap:11px}.form label{font-size:12px;color:var(--muted)}.form input,.form select{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mobilebar{display:none}@media(max-width:900px){.side{display:none}.main{padding:18px 15px 90px}.grid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr}.mobilebar{display:flex;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);z-index:5;justify-content:space-around;padding:8px}.mobilebar button{background:none;color:#666}.mobilebar button.active{color:var(--green);font-weight:800}}@media(max-width:560px){.grid{grid-template-columns:1fr}.top{align-items:flex-start;gap:10px;flex-direction:column}.row{grid-template-columns:1fr}.table th:nth-child(4),.table td:nth-child(4){display:none}}
+
+/* Mobile optimization */
+.mobile-overlay{display:none}.drawer-close{display:none}.menu-btn{display:none}.top-left{display:flex;align-items:center;gap:10px;min-width:0}
+@media(max-width:900px){.side{position:fixed;left:0;top:0;bottom:0;height:100dvh;width:min(290px,82vw);transform:translateX(-105%);transition:transform .22s ease;box-shadow:12px 0 35px rgba(0,0,0,.12);z-index:60}.side.open{transform:translateX(0)}.drawer-close{display:block;position:absolute;right:12px;top:10px;width:38px;height:38px;border-radius:50%;background:#f2f3ef;color:#555;font-size:24px}.mobile-overlay{position:fixed;inset:0;background:rgba(20,25,21,.34);z-index:50}.mobile-overlay.show{display:block}.main{width:100%;max-width:none;padding:16px 13px 94px}.menu-btn{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:#fff;border:1px solid var(--line);font-size:20px;color:var(--green)}.top{align-items:center;gap:10px;margin-bottom:18px}.top h1{font-size:25px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mobilebar{display:flex;position:fixed;left:0;right:0;bottom:0;height:70px;background:rgba(255,255,255,.97);border-top:1px solid var(--line);z-index:55;justify-content:space-around;padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -5px 20px rgba(0,0,0,.06)}.mobilebar button{background:none;color:#73766f;min-width:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:10px;padding:4px}.mobilebar button.active{color:var(--green);font-weight:800;background:#edf2ee}.mobilebar small{font-size:10px;line-height:1}.micon{font-size:19px;line-height:1}}
+@media(max-width:560px){html{font-size:15px}.main{padding:12px 11px 94px}.top{flex-wrap:wrap}.top-left{flex:1;min-width:190px}.top h1{font-size:23px}.top>.picker{flex:1;min-width:150px}.grid{gap:9px}.card{padding:14px;border-radius:15px}.hero{padding:18px;border-radius:18px}.hero .big{font-size:31px}.row{grid-template-columns:1fr}.toolbar{gap:8px}.modal{padding:12px}.modalbox{padding:18px;border-radius:18px;max-height:88dvh}.table{min-width:620px}}
+@media(max-width:380px){.grid{grid-template-columns:1fr}.mobilebar button{min-width:50px}.mobilebar small{font-size:9px}}
 </style>
 </head>
 <body>
-<div class="app">
-<aside class="side"><div class="brand">JD Finance<small>JD Kitchen • JD Atelier</small></div><div id="nav" class="nav"></div></aside>
-<main class="main"><div class="top"><div><h1 id="title">Dashboard</h1><span class="muted">Your business, clearly.</span></div><select id="business" class="picker" onchange="render()"><option>JD Kitchen</option><option>JD Atelier</option><option>All Businesses</option></select></div><div id="content"></div></main>
+<div class="app"><div class="mobile-overlay" id="mobileOverlay" onclick="closeDrawer()"></div>
+<aside class="side" id="side"><button class="drawer-close" onclick="closeDrawer()">×</button><div class="brand">JD Finance<small>JD Kitchen • JD Atelier</small></div><div id="nav" class="nav"></div></aside>
+<main class="main"><div class="top"><div class="top-left"><button class="menu-btn" onclick="openDrawer()">☰</button><div><h1 id="title">Dashboard</h1><span class="muted">Your business, clearly.</span></div></div><select id="business" class="picker" onchange="render()"><option>JD Kitchen</option><option>JD Atelier</option><option>All Businesses</option></select></div><div id="content"></div></main>
 </div>
 <div class="mobilebar" id="mobilebar"></div>
 <div class="modal" id="modal"><div class="modalbox" id="modalbox"></div></div>
@@ -26,7 +39,7 @@ let page="Dashboard";
 const nav=["Dashboard","Transactions","Products","Inventory","Customers","Suppliers","Reports","Budgets","Settings"];
 const money=n=>"৳"+Number(n||0).toLocaleString("en-US",{maximumFractionDigits:0});
 const save=()=>localStorage.setItem(KEY,JSON.stringify(db));
-function seed(){if(db.transactions.length)return;
+function openDrawer(){document.getElementById("side").classList.add("open");document.getElementById("mobileOverlay").classList.add("show")}function closeDrawer(){document.getElementById("side").classList.remove("open");document.getElementById("mobileOverlay").classList.remove("show")}function seed(){if(db.transactions.length)return;
 db.transactions=[
 {id:uid(),date:today(),business:"JD Kitchen",type:"income",title:"Order #104",category:"Sales",account:"bKash",amount:4800},
 {id:uid(),date:today(),business:"JD Kitchen",type:"expense",title:"Ingredients",category:"Ingredients",account:"Cash",amount:2480},
@@ -36,7 +49,7 @@ db.transactions=[
 function uid(){return crypto.randomUUID?crypto.randomUUID():Date.now()+Math.random()}
 function today(){return new Date().toISOString().slice(0,10)}
 function vis(){let b=document.getElementById("business").value;return b==="All Businesses"?db.transactions:db.transactions.filter(x=>x.business===b)}
-function renderNav(){document.getElementById("nav").innerHTML=nav.map(x=>`<button class="${page===x?"active":""}" onclick="go('${x}')">${icon(x)} ${x}</button>`).join("");document.getElementById("mobilebar").innerHTML=nav.slice(0,5).map(x=>`<button class="${page===x?"active":""}" onclick="go('${x}')">${icon(x)}<br><small>${x}</small></button>`).join("")}
+function renderNav(){document.getElementById("nav").innerHTML=nav.map(x=>`<button class="${page===x?"active":""}" onclick="go('${x}');closeDrawer()">${icon(x)} <span>${x}</span></button>`).join("");const mobile=["Dashboard","Transactions","Products","Reports","Settings"];document.getElementById("mobilebar").innerHTML=mobile.map(x=>`<button class="${page===x?"active":""}" onclick="go('${x}')"><span class="micon">${icon(x)}</span><small>${x}</small></button>`).join("")}
 function icon(x){return({Dashboard:"⌂",Transactions:"☷",Products:"▦",Inventory:"◫",Customers:"♙",Suppliers:"♧",Reports:"◒",Budgets:"▤",Settings:"⚙"})[x]||"•"}
 function go(x){page=x;document.getElementById("title").textContent=x;renderNav();render()}
 function render(){let c=document.getElementById("content");({Dashboard:dashboard,Transactions:transactions,Products:products,Inventory:inventory,Customers:()=>parties("Customer"),Suppliers:()=>parties("Supplier"),Reports:reports,Budgets:budgets,Settings:settings}[page])()}
@@ -71,5 +84,10 @@ function modal(html){document.getElementById("modalbox").innerHTML=html;document
 function closeModal(){document.getElementById("modal").classList.remove("show")}
 function sum(a){return a.reduce((s,x)=>s+x.amount,0)}function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 seed();renderNav();render();
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js"));
+}
 </script>
 </body></html>
